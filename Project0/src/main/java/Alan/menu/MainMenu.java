@@ -2,6 +2,7 @@ package Alan.menu;
 import java.util.Scanner;
 
 import Alan.dao.EmployeeDao;
+import Alan.dao.SalesDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class MainMenu {
 						Customers customer = CustomerInfo.get(0);
 						if (password.equals(customer.getCpassword())) {
 							System.out.println("Logged in!");
-							CustomerOperations();
+							CustomerOperations(customer);
 						}
 						else
 							System.out.println("Wrong Username or Password");
@@ -97,7 +98,7 @@ public class MainMenu {
 		}
 		
 		
-		public static void CustomerOperations() throws SQLException {
+		public static void CustomerOperations(Customers customer) throws SQLException {
 			System.out.println("1:Display Items in the shop");
 			System.out.println("2:Purchase an Item");
 			System.out.println("3:My Purchase History");
@@ -105,13 +106,13 @@ public class MainMenu {
 			int n = sc.nextInt();
 			switch(n) {
 			case 1:
-				ItemMenu.DisplayItems(1);
+				ItemMenu.DisplayItems(customer);
 				break;
 			case 2:
-				ItemMenu.Purchase();
+				ItemMenu.Purchase(customer);
 				break;
 			case 3:
-//			ItemMenu.MyPurchase();
+				ItemMenu.MyPurchase(customer);
 				break;
 			}
 			sc.close();
@@ -122,6 +123,7 @@ public class MainMenu {
 			System.out.println("2:Delete an Item");
 			System.out.println("3:Update Item");
 			System.out.println("4:Display Items");
+			System.out.println("5:Vew All Payments");
 			Scanner sc = new Scanner(System.in);
 			int n = sc.nextInt();
 			switch(n) {
@@ -135,8 +137,10 @@ public class MainMenu {
 					ItemMenu.UpdateItem();
 					break;
 				case 4:
-					ItemMenu.DisplayItems(2);
+					ItemMenu.DisplayItems2();
 					break;
+				case 5:
+					ItemMenu.ViewPayments();
 			}
 			sc.close();
 		}
