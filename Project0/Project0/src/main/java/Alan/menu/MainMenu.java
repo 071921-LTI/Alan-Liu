@@ -1,3 +1,4 @@
+
 package Alan.menu;
 import java.util.Scanner;
 
