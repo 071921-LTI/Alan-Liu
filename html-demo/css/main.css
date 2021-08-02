@@ -1,0 +1,75 @@
+html{
+    padding: 1.5%;
+    margin: 0%;
+    background-image: linear-gradient(45deg, rgb(0, 0, 0) 0%, white 50% ,black 100%);
+    min-height: 100%
+}
+
+body{
+    margin: auto;
+    padding: 2%px;
+    width: 720px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 1% 1% 1% 1%;
+}
+
+header{
+    text-align: center;
+    padding: 6%;
+    color: white;
+    border-bottom: 2px solid rgb(247, 246, 246);
+    background-image: linear-gradient(45deg, rgb(6, 149, 245), #fd06f1);
+}
+
+nav{
+    border-bottom: 2px solid rgb(5, 174, 252); 
+}
+
+nav ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(7, 159, 247);
+    overflow: hidden;
+}
+nav ul li{
+    float: left;
+    border-right: 1px solid white;
+
+}
+nav ul li:last-child{
+    float: right;
+    border-left: 1px solid white;
+    border-right: none;
+}
+nav ul li a{
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+
+}
+
+nav ul li a:hover {
+    background-color: #111;
+}
+
+main {
+    text-align: center;
+    padding: 2%;
+    border-bottom: 2px solid black;
+}
+
+
+
+footer{
+    background-color: rgb(6, 248, 46);
+    padding: 1%;
+    text-align: right;
+}
+
+footer span{
+    color: rgb(19, 20, 20);
+}
