@@ -1,3 +1,4 @@
+
 package Alan.menu;
 import java.util.Scanner;
 
@@ -42,14 +43,19 @@ public class MainMenu {
 					System.out.println("Please Enter the Password:");
 					String password = sc.nextLine();
 					ArrayList<Customers> CustomerInfo = new CustomerDao().CustomerLogin(username);
-					Customers customer = CustomerInfo.get(0);
-					if (password.equals(customer.getCpassword())) {
-						System.out.println("Logged in!");
-						CustomerOperations(customer);
+					if (CustomerInfo == null || CustomerInfo.size() == 0) {
+						System.out.println("Wrong Username");
 					}
-					else
-						System.out.println("Wrong Username or Password");
-					
+					else {
+						Customers customer = CustomerInfo.get(0);
+						if (password.equals(customer.getCpassword())) {
+							System.out.println("Logged in!");
+							CustomerOperations(customer);
+						}
+						else {
+							System.out.println("Wrong Password");
+						}
+					}
 				}
 				//Customer Register
 				else if(x==2) {
@@ -62,20 +68,34 @@ public class MainMenu {
 			case 2:
 				//Employee Login
 				System.out.println("");
-				System.out.println("Please Enter Username:");
-				sc.nextLine();
-				String username = sc.nextLine();
-				System.out.println("Please Enter Password:");
-				String password = sc.nextLine();
-				ArrayList<Employee> EmployeeInfo = new EmployeeDao().EmployeeLogin(username);
-				Employee Employee = EmployeeInfo.get(0);
-				if (password.equals(Employee.getEpassword())){
-					System.out.println("Logged in!");
-					EmployerOperations();
+				System.out.println("Enter 1 to Login");
+				System.out.println("Enter other Number to Return to MainMenu");
+		
+				int a = sc.nextInt();
+				if (a==1) {
+					sc.nextLine();
+					System.out.println("Please Enter Username:");
+					String username = sc.nextLine();
+					System.out.println("Please Enter Password:");
+					String password = sc.nextLine();
+					ArrayList<Employee> EmployeeInfo = new EmployeeDao().EmployeeLogin(username);
+					if (EmployeeInfo == null || EmployeeInfo.size() == 0) {
+						System.out.println("Wrong Username");
+					}
+					else {
+						Employee Employee = EmployeeInfo.get(0);
+						if (password.equals(Employee.getEpassword())){
+							System.out.println("Logged in!");
+							EmployerOperations();
+						}
+						else {
+							System.out.println("Wrong Password");
+						}
+					}
 				}
-				else
-					System.out.println("Wrong Username or Password");
-				
+				else {
+					MainMenu.mainMenu();
+				}
 				break;
 			case 3:
 				System.out.println("");
