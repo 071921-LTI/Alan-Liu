@@ -1,1 +1,0 @@
-drop table if exists ers_reimbursement_status, ers_reimbursement_type, ers_user_roles, ers_users, ers_reimbursement;
