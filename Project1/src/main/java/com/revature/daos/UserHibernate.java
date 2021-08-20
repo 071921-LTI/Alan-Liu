@@ -54,5 +54,17 @@ public class UserHibernate implements UserDao{
 		}
 		return user.getId();
 	}
+
+	@Override
+	public boolean updateUserEmail(int id, String email) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateUserPassword(int id, String password) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

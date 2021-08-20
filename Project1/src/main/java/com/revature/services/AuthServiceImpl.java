@@ -17,7 +17,7 @@ public class AuthServiceImpl implements AuthService {
 		if (password.equals(user.getPassword())) {
 			return user;
 		} else {
-			return null;
+			throw new UserNotFoundException();
 		}
 	}
 	

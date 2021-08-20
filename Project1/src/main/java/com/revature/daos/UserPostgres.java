@@ -133,7 +133,49 @@ public class UserPostgres implements UserDao{
 		return id;
     }
 
-    
+	@Override
+	public boolean updateUserEmail(int id, String email) throws SQLException {
+		boolean bool = false;
+		String sql = "Update ers_users Set user_email = ? Where ers_users_id = ?";
+		try {
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setInt(2, id);
+
+			int res = ps.executeUpdate();
+			if (res > 0)
+				bool = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			conn.close();
+		}
+		
+		return bool;
+	}
+
+	@Override
+	public boolean updateUserPassword(int id, String password) throws SQLException {
+		boolean bool = false;
+		String sql = "Update ers_users Set ers_password = ? Where ers_users_id = ?";
+		try {
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, password);
+			ps.setInt(2, id);
+
+			int res = ps.executeUpdate();
+			if (res > 0)
+				bool = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			conn.close();
+		}
+		
+		return bool;
+	}
 
 
 }

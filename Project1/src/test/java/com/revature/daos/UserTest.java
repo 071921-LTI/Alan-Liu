@@ -24,12 +24,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
+import com.revature.services.UserService;
+import com.revature.services.UserServiceImpl;
 import com.revature.util.ConnectionUtil;
 
 @ExtendWith(MockitoExtension.class)
 public class UserTest {
 
 	private UserDao ud = new UserPostgres();
+	private UserService us = new UserServiceImpl();
 	private static MockedStatic<ConnectionUtil> mockedConnectionUtil;
 	private static Connection connection;
 
@@ -55,7 +58,7 @@ public class UserTest {
 		 * return a connection to the H2 while the mock is "open".
 		 */
 		mockedConnectionUtil = Mockito.mockStatic(ConnectionUtil.class);
-		mockedConnectionUtil.when(ConnectionUtil::getConnectionFromEnv).then(I -> getH2Connection());
+		mockedConnectionUtil.when(ConnectionUtil::getConnection).then(I -> getH2Connection());
 	}
 
 	@AfterAll
@@ -63,7 +66,7 @@ public class UserTest {
 			/*
 			 * Drops h2 tables after tests.
 			 */
-			try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			try (Connection c = ConnectionUtil.getConnection()) {
 				RunScript.execute(c, new FileReader("teardown.sql"));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -81,7 +84,7 @@ public class UserTest {
 			/*
 			 * Clear previous tables and recreates tables before each tests
 			 */
-			try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			try (Connection c = ConnectionUtil.getConnection()) {
 				RunScript.execute(c, new FileReader("setup.sql"));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -93,61 +96,47 @@ public class UserTest {
 	@Test
 	public void connectionTest() {
 		try {
-			Connection con = ConnectionUtil.getConnectionFromEnv();
+			Connection con = ConnectionUtil.getConnection();
 			assertNotNull(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-//	@Test
-//	public void getByIdExists() throws UserNotFoundException {
-//		User expected = new User(1, "Alan", "password", "Enrollment Admin");
-//		assertEquals(ud.getUserById(1), expected);
-//	}
+	@Test
+	public void getByIdExists() throws UserNotFoundException, SQLException {
+		User expected = new User("Alan", "pass", "first", "last", "newuser@email.com", 2);
+		int i = ud.addUser(expected);
+		assertEquals(ud.getUserById(1).getId(), i);
+	}
 	
-//	@Test
-//	public void getByIdDoesNotExists() {
-//		assertThrows(UserNotFoundException.class, ()->ud.getUserById(100));
-//	}
-//	
-//	@Test
-//	public void getByUsernameExists() throws UserNotFoundException {
-//		User expected = new User(2, "John", "jathFmUDCbL", "CEO");
-//		assertEquals(ud.getUserByUsername("John"), expected);
-//	}
-//	
-//	@Test
-//	public void getByUsernameDoesNotExists() {
-//		assertThrows(UserNotFoundException.class, ()->ud.getUserByUsername("Test"));
-//	}
-//	
-//	@Test
-//	public void addUserValid() {
-//		assertEquals(ud.addUser(new User("Test", "Test", "Test")), 4);
-//	}
-//	
-//	@Test
-//	public void addUserInvalid() {
-//		assertEquals(ud.addUser(new User("John", "jathFmUDCbL", "CEO")), -1);
-//	}
-//	
-//	@Test
-//	public void getUsers() {
-//	List<User> users = new ArrayList<>();
-//	users.add(new User(1, "Admin", "password", "Enrollment Admin"));
-//	users.add(new User(2, "John", "jathFmUDCbL", "CEO"));
-//	users.add(new User(3, "Jimmy", "randomPass1", "Manager"));
-//		assertEquals(ud.getUsers(), users);
-//	}
-//	
-//	@Test
-//	public void deleteUserValid() throws UserNotFoundException {
-//		assertEquals(ud.deleteUser(1), 1);
-//	}
-//	
-//	@Test
-//	public void deleteUserInvalid() throws UserNotFoundException {
-//		assertEquals(ud.deleteUser(10), 0);
-//	}
+	@Test
+	public void addUserNotExist() throws SQLException {
+		User user = new User("newUser", "password", "first", "last", "newuser@email.com", 1);
+		user.setId(1);
+		assertEquals(1, us.addUser(user));
+	}
+	
+	@Test
+	public void getByIdDoesNotExists() throws UserNotFoundException, SQLException {
+		assertEquals(null, ud.getUserById(100));
+	}
+	
+	@Test
+	public void getByUsernameExists() throws UserNotFoundException, SQLException {
+		User expected = new User("Alan", "pass", "first", "last", "newuser@email.com", 2);
+		ud.addUser(expected);
+		assertEquals(ud.getUserByUsername("Alan").getUsername(), expected.getUsername());
+	}
+	
+	@Test
+	public void getByUsernameDoesNotExists() {
+		assertThrows(UserNotFoundException.class, ()->ud.getUserByUsername("Test"));
+	}
+	
+	@Test
+	public void addUserValid() throws SQLException {
+		assertEquals(ud.addUser(new User("Alan", "pass", "first", "last", "newuser@email.com", 2)), 1);
+	}
+	
 }

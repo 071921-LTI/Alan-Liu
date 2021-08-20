@@ -14,10 +14,13 @@ import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.User;
 import com.revature.services.AuthService;
 import com.revature.services.AuthServiceImpl;
+import org.apache.logging.log4j.LogManager; 
+import org.apache.logging.log4j.Logger;
 
 public class AuthDelegate implements Delegatable{
 	AuthService as = new AuthServiceImpl();
 	private static final long serialVersionUID = 1L;
+	private static Logger log = LogManager.getRootLogger();
 	@Override
 	public void process(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException, SQLException, UserNotFoundException {
 
@@ -73,9 +76,11 @@ public class AuthDelegate implements Delegatable{
 				rs.setStatus(200);
 			} else {
 				rs.sendError(404);
+				log.error("Failed to find Login " + username);
 			}
 		} catch (UserNotFoundException e) {
 			rs.sendError(404);
+			
 		}
 
 

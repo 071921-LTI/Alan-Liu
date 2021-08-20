@@ -15,5 +15,7 @@ public interface UserDao {
 	List<User> getUsers() throws SQLException;
 	// Should return the id generated
 	int addUser(User user) throws SQLException;
+	boolean updateUserEmail(int id,String email) throws SQLException;
+	boolean updateUserPassword(int id, String password) throws SQLException;
 	
 }

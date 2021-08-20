@@ -37,6 +37,16 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
+	@Override
+	public boolean updateUserEmail(int id, String email) throws UserNotFoundException, SQLException {
+		return ud.updateUserEmail(id, email);
+	}
+
+	@Override
+	public boolean updateUserPassword(int id, String password) throws UserNotFoundException,SQLException {
+		return ud.updateUserPassword(id, password);
+	}
+
 
 	
 }

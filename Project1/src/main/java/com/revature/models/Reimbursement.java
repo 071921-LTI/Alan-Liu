@@ -19,29 +19,33 @@ public class Reimbursement {
 	private int id;
 	
 	@Column(name = "reimb_amount", nullable = false, columnDefinition = "NUMERIC(7,2)")
-	
 	private double amount;
 	
 	@Column(name = "reimb_submitted", nullable = false)
 	private Timestamp submitted;
 	
-	@Column(name = "reimb_resolved")
+	@Column(name = "reimb_resolved", nullable = true)
 	private Timestamp resolved;
 	
 	@Column(name = "reimb_description")
 	private String description;
 	
-	@ManyToOne(targetEntity = User.class) @JoinColumn(name = "reimb_author", nullable = false)
+	@Column(name = "reimb_author")
+//	@ManyToOne(targetEntity = User.class) @JoinColumn(name = "reimb_author", nullable = false)
 	private int authorId;
 	
-	@ManyToOne(targetEntity = User.class) @JoinColumn(name = "reimb_resolver")
+	@Column(name = "reimb_resolver",nullable = true)
+//	@ManyToOne(targetEntity = User.class) @JoinColumn(name = "reimb_resolver")
 	private int resolverId;
 	
-	@ManyToOne(targetEntity = ReimbursementStatus.class) @JoinColumn(name = "reimb_status_id", nullable = false)
+	@Column(name = "reimb_status_id")
+//	@ManyToOne(targetEntity = ReimbursementStatus.class) @JoinColumn(name = "reimb_status_id", nullable = false)
 	private int status;
 	
-	@ManyToOne(targetEntity = ReimbursementType.class) @JoinColumn(name = "reimb_type_id", nullable = false)
+	@Column(name = "reimb_type_id")
+//	@ManyToOne(targetEntity = ReimbursementType.class) @JoinColumn(name = "reimb_type_id", nullable = false)
 	private int type;
+	
 	
 	public Reimbursement() {
 		super();
@@ -72,6 +76,16 @@ public class Reimbursement {
 		this.type = type;
 	}
 
+
+	public Reimbursement(double amount, Timestamp submitted, String description, int authorId, int status, int type) {
+		super();
+		this.amount = amount;
+		this.submitted = submitted;
+		this.description = description;
+		this.authorId = authorId;
+		this.status = status;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

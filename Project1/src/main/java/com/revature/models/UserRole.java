@@ -17,8 +17,14 @@ public class UserRole {
 	
 	@Column(name = "user_role", nullable = false)
 	private String role;
-
+	
+	
+	public UserRole() {
+		super();
+	}
+	
 	public UserRole(int roleId, String role) {
+		super();
 		this.roleId = roleId;
 		this.role = role;
 	}

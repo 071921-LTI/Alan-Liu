@@ -1,6 +1,8 @@
 package com.revature.delegates;
 
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager; 
+import org.apache.logging.log4j.Logger;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -23,6 +25,7 @@ import com.revature.services.UserServiceImpl;
 public class ReimbursementDelegate implements Delegatable {
 	ReimbursementService res = new ReimbursementServiceImpl();
 	UserService us = new UserServiceImpl();
+	private static Logger log = LogManager.getRootLogger();
 	
 	@Override
 	public void process(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException, SQLException, UserNotFoundException {
@@ -65,6 +68,7 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 			catch(IOException e) {
 				rs.setStatus(401);
+				log.error("Failed to find All Reimbursements " + allReimb);
 				e.printStackTrace();
 			}
 			break;
@@ -82,7 +86,6 @@ public class ReimbursementDelegate implements Delegatable {
 			
 			int userID = Integer.parseInt(rq.getParameter("userId"));
 			List<Reimbursement> userReimb = res.getByUser(userID);
-			
 			try {
 				ObjectMapper om = new ObjectMapper();
 				ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
@@ -93,6 +96,7 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 			catch(IOException e) {
 				rs.setStatus(401);
+				log.error("Failed to find the User Reimbursements " + userReimb);
 				e.printStackTrace();
 			}
 			break;
@@ -110,6 +114,7 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 			catch(IOException e) {
 				rs.setStatus(401);
+				log.error("Failed to Get Pending Reimbursements " + Reimbs);
 				e.printStackTrace();
 			}
 			break;
@@ -127,6 +132,7 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 			catch(IOException e) {
 				rs.setStatus(401);
+				log.error("Failed to Get Resolved Reimbursements " + r);
 				e.printStackTrace();
 			}
 			break;
@@ -138,7 +144,6 @@ public class ReimbursementDelegate implements Delegatable {
 	public void handlePost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException, SQLException {
 		
 		String actualURL = rq.getRequestURI().substring(rq.getContextPath().length());
-		System.out.println(actualURL);
 		switch(actualURL) {
 		case "/reimbursement/add":
 			String json;
@@ -155,6 +160,7 @@ public class ReimbursementDelegate implements Delegatable {
 				
 				if(newReimbursement == 0) {
 					rs.setStatus(401);
+					log.error("Failed to Add Reimbursement " + r);
 				}
 				else {
 					rs.setStatus(201);
@@ -175,6 +181,7 @@ public class ReimbursementDelegate implements Delegatable {
 				
 				if(success == false) {
 					rs.setStatus(401);
+					log.error("Failed to Approve the Reimbursement " + r);
 				}
 				else {
 					rs.setStatus(200);
@@ -194,6 +201,7 @@ public class ReimbursementDelegate implements Delegatable {
 				
 				if(success == false) {
 					rs.setStatus(401);
+					log.error("Failed to Deny the Reimbursements " + r);
 				}
 				else {
 					rs.setStatus(200);

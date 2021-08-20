@@ -36,3 +36,20 @@
  	reimb_status_id INTEGER references ers_reimbursement_status(reimb_status_id),
  	reimb_type_id INTEGER references ers_reimbursement_type(reimb_type_id)
  );
+ 
+insert into ers_reimbursement_type (reimb_type) values ('LODGING');
+insert into ers_reimbursement_type (reimb_type) values ('TRAVEL');
+insert into ers_reimbursement_type (reimb_type) values ('FOOD');
+insert into ers_reimbursement_type (reimb_type) values ('OTHER');
+
+insert into ers_user_roles (user_role) values ('Employee');
+insert into ers_user_roles (user_role) values ('Manager');
+
+insert into ers_reimbursement_status (reimb_status) values ('Pending');
+insert into ers_reimbursement_status (reimb_status) values ('Approved');
+insert into ers_reimbursement_status (reimb_status) values ('Deny');
+
+--insert into ers_users (ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
+--values ('Alan', 'pass', 'first', 'last', 'user@email.com', 2);
+--insert into ers_users (ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
+--values ('Andy', 'password', 'first', 'last', 'david@email.com', 1);

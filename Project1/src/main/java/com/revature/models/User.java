@@ -34,7 +34,7 @@ public class User {
 	@Column(name = "user_email", nullable = false, unique = true)
 	private String email;
 	
-	@ManyToOne(targetEntity = UserRole.class) @JoinColumn(name = "user_role_id", nullable = false)
+	@Column(name = "user_role_id")
 	private int role;
 	
 	public User() {

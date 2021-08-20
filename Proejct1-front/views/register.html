@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Register Page</title>
+	<link rel="stylesheet" href="../CSS/main.css"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container align-content-center" id="loginForm">
+		<form>
+			<div class="form-row justify-content-center">
+				<h1 class="display-4">Reimbursment System</h1>
+			</div>
+			<br>
+			<div id="bottomBorder" class="form-row justify-content-center">
+				<h1 class="display-4">Register Page</h1>
+			</div>
+			<hr>
+			<br>
+			<form>
+				<div class="form-row justify-content-center">
+					<label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
+					<div class="inputstyle">
+						<input type="text" class="form-control" id="firstname" placeholder="First Name">
+					</div>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+					<div class="inputstyle">
+						<input type="text" class="form-control" id="lastname" placeholder="Last Name">
+					</div>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+					<div class="inputstyle">
+						<input type="text" class="form-control" id="username" placeholder="Username">
+					</div>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+					<div class="inputstyle">
+						<input type="password" class="form-control" id="password" placeholder="Password">
+					</div>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+					<div class="inputstyle">
+						<input type="email" class="form-control" id="email" placeholder="Email">
+					</div>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<label for="inputState">User Type:</label>
+					<select id="role" class="form-control">
+					  <option selected>Choose...</option>
+					  <option>Employee</option>
+					  <option>Finance Manager</option>
+					</select>
+				</div>
+				<br>
+				<div class="form-row justify-content-center">
+					<div class="inputstyle">
+						<button type="button" class="btn btn-primary" onclick="register()">Register</button>
+					</div>
+				</div>
+			</form>
+	</div>
+
+	<script src="../scripts/register.js"></script>
+
+</body>
+
+</html>

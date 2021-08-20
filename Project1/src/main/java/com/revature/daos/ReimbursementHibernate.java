@@ -40,7 +40,7 @@ public class ReimbursementHibernate implements ReimbursementDao{
 	public List<Reimbursement> getReimbursementByUser(int id) throws SQLException {
 		List<Reimbursement> reimbs = null;
 		try (Session s = HibernateUtil.getSessionFactory().openSession()) {
-			String hql = ("from Reimbursement where authorId = :id");
+			String hql = ("from Reimbursement as r where r.authorId.id = :user");
 			TypedQuery<Reimbursement> nq = s.createQuery(hql, Reimbursement.class);
 			nq.setParameter("user", id);
 			reimbs = nq.getResultList();
@@ -84,8 +84,15 @@ public class ReimbursementHibernate implements ReimbursementDao{
 		
 	}
 
+
 	@Override
-	public List<Reimbursement> getReimbursementByStatus(int statusId) throws SQLException {
+	public List<Reimbursement> getReimbursementByPending() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementByResolved() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

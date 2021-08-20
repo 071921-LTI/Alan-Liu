@@ -13,6 +13,6 @@ public interface UserService {
 	List<User> getUsers() throws SQLException;
 	User getUserById(int id) throws UserNotFoundException, SQLException;
 	User getUserByUsername(String username) throws UserNotFoundException, SQLException;
-
-	
+	boolean updateUserEmail(int id, String email) throws UserNotFoundException, SQLException;
+	boolean updateUserPassword(int id, String password) throws SQLException, UserNotFoundException;
 }
